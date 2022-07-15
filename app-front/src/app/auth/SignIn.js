@@ -11,7 +11,7 @@ function SignIn({ closeModal }) {
   useClickAway(ref, () => {
     closeModal(false);
   });
-  const preventDefault = (e) => {
+  const preventDefault = async (e) => {
     e.preventDefault();
   };
   const handleChange = (e) => {
@@ -36,7 +36,7 @@ function SignIn({ closeModal }) {
               Email
             </label>
             <input
-              onChange={(e) => console.log(e)}
+              onChange={(e) => handleChange(e)}
               className="text-md block px-3 py-2  rounded-lg w-full 
                 bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
               type="email"
