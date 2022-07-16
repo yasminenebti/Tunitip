@@ -5,12 +5,21 @@ import { UserIcon } from "@heroicons/react/solid";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import SignIn from "../auth/SignIn";
+import Register from "../auth/Register";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-function Header() {
+function Header({ authState }) {
   const [isOpen, setIsOpen] = useState(false);
-  const handleClose = (e) => {
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+
+  const handleSignInClose = (e) => {
     setIsOpen(e);
   };
+  const handleRegisterClose = (e) => {
+    setIsRegisterOpen(e);
+  };
+
   return (
     <>
       <header className="sticky  bg-yellow grid grid-cols-3  py-1 pt-3  md:px-20 ">
@@ -36,11 +45,35 @@ function Header() {
             <UserIcon className="h-5 font-bold " />
             <ChevronDownIcon className="h-5" />
           </button>
-          {isOpen && <SignIn closeModal={(e) => handleClose(e)} />}
+          {isOpen && <SignIn closeModal={(e) => handleSignInClose(e)} />}
+          {!authState.isAuthenticated ? (
+            <button
+              onClick={(e) => {
+                setIsRegisterOpen(true);
+              }}
+              className="flex items-center space-x-1 justify-end border-2 p-2 border-yellow shadow-md hover:shadow-xl rounded-full cursor-pointer text-primary active:scale-90 transition duration-200"
+            >
+              <UserIcon className="h-5 font-bold " />
+              <ChevronDownIcon className="h-5" />
+            </button>
+          ) : (
+            <div>Welcome, {authState.user.firstName}</div>
+          )}
+          {isRegisterOpen && (
+            <Register closeModal={(e) => handleRegisterClose(e)} />
+          )}
         </div>
       </header>
     </>
   );
 }
+Header.propTypes = {
+  authState: PropTypes.object.isRequired,
+};
+const mapStateToProps = (state) => ({
+  authState: state.authState,
+});
 
-export default Header;
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

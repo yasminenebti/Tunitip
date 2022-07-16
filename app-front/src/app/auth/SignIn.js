@@ -1,8 +1,10 @@
 import React, { useRef, useState } from "react";
 import { useClickAway } from "react-use";
 import PropTypes from "prop-types";
+import { login } from "../actions/auth.actions";
+import { connect } from "react-redux";
 
-function SignIn({ closeModal }) {
+function SignIn({ closeModal, login }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -11,8 +13,10 @@ function SignIn({ closeModal }) {
   useClickAway(ref, () => {
     closeModal(false);
   });
-  const preventDefault = async (e) => {
+  const onSubmitData = async (e) => {
     e.preventDefault();
+    await login(formData);
+    closeModal(false);
   };
   const handleChange = (e) => {
     setFormData({
@@ -30,7 +34,7 @@ function SignIn({ closeModal }) {
           X
         </button>
 
-        <form onSubmit={(e) => preventDefault(e)} className="mt-8">
+        <form onSubmit={(e) => onSubmitData(e)} className="mt-8">
           <div className="mx-auto p-5">
             <label className="text-md text-grayDark py-5" htmlFor="email">
               Email
@@ -80,7 +84,13 @@ function SignIn({ closeModal }) {
   );
 }
 SignIn.propTypes = {
+  login: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
 };
+const mapStateToProps = (state) => ({});
 
-export default SignIn;
+const mapDispatchToProps = {
+  login,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

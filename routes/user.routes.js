@@ -2,15 +2,16 @@ const router = require("express").Router();
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const verifyToken = require("../middlewares/verifyToken");
 
-// router.get("/authcheck", verifyToken, async (req, res) => {
-//   try {
-//     const user = await User.findById(req.verifiedUser.id);
-//     return res.status(200).json({ user: user });
-//   } catch (err) {
-//     return res.status(500).json({ message: err });
-//   }
-// });
+router.get("/authcheck", verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.verifiedUser.id);
+    return res.status(200).json({ user: user });
+  } catch (error) {
+    return res.status(500).json({ message: message.error });
+  }
+});
 
 router.post("/register", async (req, res) => {
   try {
