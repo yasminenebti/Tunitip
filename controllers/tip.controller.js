@@ -29,6 +29,15 @@ const getTips = async (req, res) => {
     res.status(500).json({ message: message.error });
   }
 };
+const searchTip = async (req, res) => {
+  const q = req.query.q ? req.query.q : "";
+  try {
+    const tip = await Tip.find({ name: { $regex: `.*${q}.*` } });
+    return res.status(200).send({ Tip: tip });
+  } catch {
+    res.status(500).json({ message: message.error });
+  }
+};
 
 const getTip = async (req, res) => {
   const id = req.params.id;
@@ -36,16 +45,6 @@ const getTip = async (req, res) => {
   try {
     return res.status(200).json({ Tip: tip });
   } catch (error) {
-    res.status(500).json({ message: message.error });
-  }
-};
-
-const searchTip = async (req, res) => {
-  const q = req.query.q ? req.query.q : "";
-  try {
-    const tip = await Tip.find({ name: { $regex: `.*${q}.*` } });
-    return res.status(200).send({ Tip: tip });
-  } catch {
     res.status(500).json({ message: message.error });
   }
 };
