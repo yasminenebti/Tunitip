@@ -9,18 +9,6 @@ import Register from "../auth/Register";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-export function Dropdown() {
-  return (
-    <div className="absolute top-full min-w-full w-max bg-white shadow-md mt-1 rounded">
-      <div className="py-1 px-3">
-        <div className="px-4 py1 cursor-pointer">Account </div>
-        <div className="px-4 py1 cursor-pointer">about</div>
-        <div className="px-4 py1 cursor-pointer">tools</div>
-      </div>
-    </div>
-  );
-}
-
 function Header({ authState }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -47,6 +35,7 @@ function Header({ authState }) {
           />
           <SearchIcon className="hidden h-9 bg-primary rounded-full text-yellow  cursor-pointer p-2 md:inline-flex md:mx-2 active:scale-90 transition duration-200" />
         </div>
+
         <div className="flex items-center justify-end space-x-1">
           {isOpen && <SignIn closeModal={(e) => handleSignInClose(e)} />}
           {!authState.isAuthenticated ? (

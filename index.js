@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/category", categoryRoutes);
 app.use("/api/auth", authRoutes);
-app.use("/api/tip", tipRoutes);
+app.use("/api/tips", tipRoutes);
 //server listenning
 const port = process.env.PORT || 8080;
 app.listen(port, () => {

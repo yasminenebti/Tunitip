@@ -1,7 +1,6 @@
 const GET_TIPS = "GET_TIPS";
 const GET_TIP = "GET_TIP";
 const TIPS_ERROR = "TIPS_ERROR";
-const GET_TIPS_BY_CATEGORY = "GET_TIPS_BY_CATEGORY";
 
 const initialState = {
   tips: [],
@@ -10,12 +9,10 @@ const initialState = {
   error: {},
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case GET_TIPS:
-    case GET_TIPS_BY_CATEGORY:
       return {
         ...state,
         tips: payload.tips,

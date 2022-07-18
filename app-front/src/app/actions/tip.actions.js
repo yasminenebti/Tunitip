@@ -6,16 +6,16 @@ const GET_TIPS_BY_CATEGORY = "GET_TIPS_BY_CATEGORY";
 
 export const getTips = () => async (dispatch) => {
   try {
-    const res = await axios.get("http://localhost:5000/api/tip");
+    const res = await axios.get("http://localhost:5000/api/tips");
     dispatch({
       type: GET_TIPS,
       payload: res.data,
     });
     console.log(res);
-  } catch (message) {
+  } catch (error) {
     dispatch({
       type: TIPS_ERROR,
-      payload: message.error,
+      payload: error,
     });
   }
 };
@@ -23,7 +23,7 @@ export const getTips = () => async (dispatch) => {
 export const getTipByCategory = (categoryId) => async (dispatch) => {
   try {
     const res = await axios.get(
-      `http://localhost:5000/api/tip?category=${categoryId}`
+      `http://localhost:5000/api/tips?category=${categoryId}`
     );
     dispatch({
       type: GET_TIPS_BY_CATEGORY,
@@ -39,7 +39,7 @@ export const getTipByCategory = (categoryId) => async (dispatch) => {
 
 export const getTip = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`http://localhost:5000/api/tip/${id}`);
+    const res = await axios.get(`http://localhost:5000/api/tips/${id}`);
     dispatch({
       type: GET_TIP,
       payload: res.data,

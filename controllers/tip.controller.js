@@ -24,7 +24,7 @@ const createTip = async (req, res) => {
 const getTips = async (req, res) => {
   const tips = await Tip.find();
   try {
-    return res.status(200).json({ Tips: tips });
+    return res.status(200).json({ tips: tips });
   } catch (error) {
     res.status(500).json({ message: message.error });
   }

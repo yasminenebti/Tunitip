@@ -1,28 +1,35 @@
 import React, { useEffect } from "react";
 import { getTips } from "../actions/tip.actions";
-import DisplayTips from "./DisplayTips";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import DisplayTips from "./DisplayTips";
 
-function PageA({ tipState, getTips }) {
+const PageA = ({ getTips, tipState }) => {
   useEffect(() => {
     getTips();
-  }, []);
+  }, [getTips]);
   return (
-    <div className=" p-4 m-20 grid grid-cols-4  gap-6">
-      {tipState.tips.map((tip) => {
-        return (
-          <DisplayTips
-            key={tip.id}
-            image={tip.image}
-            name={tip.name}
-            place={tip.place}
-          />
-        );
-      })}
-    </div>
+    <>
+      <div>PageA</div>
+
+      {tipState.tips.length > 0 ? (
+        <div className="grid grid-cols-5 gap-4 ">
+          {tipState.tips.map((tip) => {
+            return (
+              <DisplayTips
+                key={tip.id}
+                name={tip.name}
+                description={tip.description}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        ""
+      )}
+    </>
   );
-}
+};
 
 PageA.propTypes = {
   getTips: PropTypes.func.isRequired,
@@ -35,5 +42,4 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   getTips,
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(PageA);
