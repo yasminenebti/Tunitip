@@ -7,5 +7,6 @@ router.get("/", tipRoutes.getTips);
 router.post("/", verifyToken, isHost, tipRoutes.createTip);
 router.post("/search", tipRoutes.searchTip);
 router.post("/:id", tipRoutes.getTip);
+router.put("/:id", verifyToken, isHost, tipRoutes.updateTip);
 
 module.exports = router;

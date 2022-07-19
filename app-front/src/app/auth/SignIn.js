@@ -25,7 +25,7 @@ function SignIn({ closeModal, login }) {
     });
   };
   return (
-    <div className="fixed z-40 h-full  w-full top-0 left-0 flex items-center justify-center  bg-grayDark bg-opacity-20 ">
+    <div className="fixed z-50 h-full  w-full top-0 left-0 flex items-center justify-center  bg-grayDark bg-opacity-60 ">
       <div ref={ref} className="w-1/3 h-2/3 bg-yellow rounded-xl ">
         <button
           onClick={() => closeModal(false)}

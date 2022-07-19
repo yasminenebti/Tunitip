@@ -4,9 +4,11 @@ const GET_TIP = "GET_TIP";
 const TIPS_ERROR = "TIPS_ERROR";
 const GET_TIPS_BY_CATEGORY = "GET_TIPS_BY_CATEGORY";
 
-export const getTips = () => async (dispatch) => {
+export const getTips = (limit) => async (dispatch) => {
   try {
-    const res = await axios.get("http://localhost:5000/api/tips");
+    const res = await axios.get(
+      `http://localhost:5000/api/tips?limit=${limit}`
+    );
     dispatch({
       type: GET_TIPS,
       payload: res.data,

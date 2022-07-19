@@ -6,7 +6,7 @@ import DisplayTips from "./DisplayTips";
 
 const PageA = ({ getTips, tipState }) => {
   useEffect(() => {
-    getTips();
+    getTips(5);
   }, [getTips]);
   return (
     <>
@@ -16,11 +16,7 @@ const PageA = ({ getTips, tipState }) => {
         <div className="grid grid-cols-5 gap-4 ">
           {tipState.tips.map((tip) => {
             return (
-              <DisplayTips
-                key={tip.id}
-                name={tip.name}
-                description={tip.description}
-              />
+              <DisplayTips key={tip.id} image={tip.image} name={tip.name} />
             );
           })}
         </div>
