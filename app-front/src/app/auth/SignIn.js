@@ -24,8 +24,8 @@ function SignIn({ closeModal, login }) {
       [e.target.name]: e.target.value,
     });
   };
-  return (
-    <div className="fixed z-50 h-full  w-full top-0 left-0 flex items-center justify-center  bg-grayDark bg-opacity-60 ">
+  return  (
+    <div className="fixed z-10 top-0 left-0 w-full h-full flex items-center justify-center bg-grayDark bg-opacity-60 ">
       <div ref={ref} className="w-1/3 h-2/3 bg-yellow rounded-xl ">
         <button
           onClick={() => closeModal(false)}
@@ -87,7 +87,8 @@ SignIn.propTypes = {
   login: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
 };
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+});
 
 const mapDispatchToProps = {
   login,

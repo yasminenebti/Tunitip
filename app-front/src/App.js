@@ -1,5 +1,6 @@
 import PageA from "./app/pages/PageA";
-import PageB from "./app/pages/PageB";
+import Search from "./app/pages/Search";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./app/pages/Header";
 import Category from "./app/pages/Category";
@@ -8,6 +9,7 @@ import { store } from "./store";
 import { useEffect } from "react";
 import setAuthToken from "./app/utils/setAuthToken";
 import { load } from "./app/actions/auth.actions";
+
 function App() {
   useEffect(() => {
     if (localStorage.token) {
@@ -22,7 +24,7 @@ function App() {
         <Category />
         <Routes>
           <Route path="/" element={<PageA />} />
-          <Route path="/page" element={<PageB />} />
+          <Route path="/search" element={<Search />} />
         </Routes>
       </Router>
     </Provider>

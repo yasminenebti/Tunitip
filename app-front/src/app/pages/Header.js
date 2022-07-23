@@ -19,9 +19,12 @@ function Header({ authState }) {
   const handleRegisterClose = (e) => {
     setIsRegisterOpen(e);
   };
+  const dropdown = () => {
+    return <div className="">test</div>;
+  };
 
   return (
-    <>
+    <div>
       <header className="sticky  bg-yellow grid grid-cols-3  py-1 pt-3  md:px-20 ">
         <Link to="/">
           <img alt="" src={logo} layout="fill" width="50px" className="pt-2" />
@@ -58,14 +61,19 @@ function Header({ authState }) {
               </button>
             </>
           ) : (
-            <div className="flex items-center justify-center">
-              <div className=" italic px-4">
-                Welcome, {authState.user.firstName}
+            <div>
+              <div className="flex items-center justify-center">
+                <div className=" italic px-4">
+                  Welcome, {authState.user.firstName}
+                </div>
+                <button
+                  onClick={(e) => dropdown()}
+                  className="flex px-3 items-center space-x-1 justify-end border-2 p-2 border-yellow shadow-md hover:shadow-xl rounded-full cursor-pointer text-primary active:scale-90 transition duration-200"
+                >
+                  <UserIcon className="h-5 font-bold " />
+                  <ChevronDownIcon className="h-5" />
+                </button>
               </div>
-              <button className="flex px-3 items-center space-x-1 justify-end border-2 p-2 border-yellow shadow-md hover:shadow-xl rounded-full cursor-pointer text-primary active:scale-90 transition duration-200">
-                <UserIcon className="h-5 font-bold " />
-                <ChevronDownIcon className="h-5" />
-              </button>
             </div>
           )}
           {isRegisterOpen && (
@@ -73,7 +81,7 @@ function Header({ authState }) {
           )}
         </div>
       </header>
-    </>
+    </div>
   );
 }
 Header.propTypes = {

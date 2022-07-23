@@ -3,6 +3,9 @@ const LOGIN_ERROR = "LOGIN_ERROR";
 const AUTH_LOAD = "AUTH_LOAD";
 const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 const REGISTER_ERROR = "REGISTER_ERROR";
+const AUTH_LOADING = "AUTH-LOADING";
+const LOGOUT = "LOGOUT";
+const AUTH_ERROR = "AUTH_ERROR";
 
 const initialState = {
   token: localStorage.getItem("token"),
@@ -20,6 +23,11 @@ export default function (state = initialState, action) {
         ...state,
         loading: false,
       };
+    case AUTH_LOADING:
+      return {
+        ...state,
+        loading: true,
+      };
     case AUTH_LOAD:
       return {
         ...state,
@@ -35,8 +43,17 @@ export default function (state = initialState, action) {
         loading: false,
         user: payload.user,
       };
+    case AUTH_ERROR:
     case LOGIN_ERROR:
     case REGISTER_ERROR:
+      localStorage.removeItem("token");
+      return {
+        ...state,
+        isAuthenticated: false,
+        loading: false,
+        error: payload,
+      };
+    case LOGOUT:
       localStorage.removeItem("token");
       return {
         ...state,

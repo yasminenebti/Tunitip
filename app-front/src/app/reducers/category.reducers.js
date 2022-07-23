@@ -14,7 +14,7 @@ export default function (state = initialState, action) {
     case GET_CATEGORIES:
       return {
         ...state,
-        tips: payload.tips,
+        categories: payload.categories,
         loading: false,
       };
 

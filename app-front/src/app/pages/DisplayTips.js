@@ -8,9 +8,7 @@ function DisplayTips({ name, key, image }) {
         src={image}
         alt="hello"
       />
-      <div className="absolute bg py-1 px-2 italic text-grayDark text-sm">
-        {name}
-      </div>
+      <div className=" bg py-1 px-2 italic text-grayDark text-sm">{name}</div>
     </div>
   );
 }

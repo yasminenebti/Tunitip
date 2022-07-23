@@ -6,8 +6,13 @@ const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 const REGISTER_ERROR = "REGISTER_ERROR";
 const AUTH_ERROR = "AUTH_ERROR";
 const AUTH_LOAD = "AUTH_LOAD";
+const AUTH_LOADING = "AUTH_LOADING";
+const LOGOUT = "LOGOUT";
 
 export const load = () => async (dispatch) => {
+  dispatch({
+    type: AUTH_LOADING,
+  });
   const token = localStorage.getItem("token");
   if (token) {
     setAuthToken(token);
@@ -28,6 +33,9 @@ export const load = () => async (dispatch) => {
 };
 
 export const login = (data) => async (dispatch) => {
+  dispatch({
+    type: AUTH_LOADING,
+  });
   try {
     const res = await axios.post("http://localhost:5000/api/auth/login", data, {
       headers: {
@@ -48,6 +56,9 @@ export const login = (data) => async (dispatch) => {
 };
 
 export const register = (data) => async (dispatch) => {
+  dispatch({
+    type: AUTH_LOADING,
+  });
   try {
     const res = await axios.post(
       "http://localhost:5000/api/auth/register",
@@ -68,4 +79,7 @@ export const register = (data) => async (dispatch) => {
       payload: message.error,
     });
   }
+};
+export const logout = () => (dispatch) => {
+  dispatch({ type: LOGOUT });
 };

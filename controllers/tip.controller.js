@@ -1,4 +1,5 @@
 const Tip = require("../models/tip");
+const Category = require("../models/category");
 const createTip = async (req, res) => {
   const newTip = new Tip({
     name: req.body.name,
@@ -33,9 +34,18 @@ const getTips = async (req, res) => {
 };
 
 const searchTip = async (req, res) => {
-  const q = req.query.q ? req.query.q : "hello";
+  const q = req.query.q ? req.query.q : "";
+  const categoryQuery = req.query.category ? req.query.category : null;
+  let category = null;
+
+  if (categoryQuery) {
+    category = await Category.findOne({ name: categoryQuery });
+  }
   try {
-    const tip = await Tip.find({ name: { $regex: `.*${q}.*` } });
+    const tip = await Tip.find({
+      category: category?.id,
+      name: { $regex: `.*${q}.*` },
+    });
     return res.status(200).send({ Tip: tip });
   } catch (error) {
     res.status(500).json({ message: message.error });
@@ -77,7 +87,7 @@ const updateTip = async (req, res) => {
       const updatedTip = await Tip.findByIdAndUpdate(id, data, { new: true });
       return res.status(201).json({ Tip: updatedTip });
     } else {
-      return res.status(404).json({ message: "You're not the host" });
+      return res.status(403).json({ message: "You're not the host" });
     }
   } catch (error) {
     res.status(500).json({ message: message.error });
