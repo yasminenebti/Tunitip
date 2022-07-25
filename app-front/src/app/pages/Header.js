@@ -1,17 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import logo from "../images/Tunilogo.png";
 import { SearchIcon } from "@heroicons/react/solid";
 import { UserIcon } from "@heroicons/react/solid";
 import { ChevronDownIcon } from "@heroicons/react/solid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SignIn from "../auth/SignIn";
 import Register from "../auth/Register";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { logout } from "../actions/auth.actions";
+import { useClickAway } from "react-use";
+import TipForm from "./TipForm";
 
-function Header({ authState }) {
+function Header({ authState, logout }) {
+  let navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [isDropDown, setIsDopDown] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isTipFormOpen, setIsTipFormOpen] = useState(false);
+
+  function handleClick() {
+    navigate("/myTrips");
+  }
 
   const handleSignInClose = (e) => {
     setIsOpen(e);
@@ -19,9 +29,13 @@ function Header({ authState }) {
   const handleRegisterClose = (e) => {
     setIsRegisterOpen(e);
   };
-  const dropdown = () => {
-    return <div className="">test</div>;
+  const handleTipFormClose = (e) => {
+    setIsTipFormOpen(e);
   };
+  const dropRef = useRef(null);
+  useClickAway(dropRef, () => {
+    setIsDopDown(false);
+  });
 
   return (
     <div>
@@ -61,23 +75,58 @@ function Header({ authState }) {
               </button>
             </>
           ) : (
-            <div>
+            <div ref={dropRef} className="relative ">
               <div className="flex items-center justify-center">
-                <div className=" italic px-4">
+                <div className=" italic px-4 ">
                   Welcome, {authState.user.firstName}
                 </div>
+
                 <button
-                  onClick={(e) => dropdown()}
-                  className="flex px-3 items-center space-x-1 justify-end border-2 p-2 border-yellow shadow-md hover:shadow-xl rounded-full cursor-pointer text-primary active:scale-90 transition duration-200"
+                  onClick={(e) => setIsDopDown(!isDropDown)}
+                  className="flex px-3 items-center space-x-1 justify-end border-2 p-2 border-yellow shadow-md hover:shadow-xl rounded-full cursor-pointer text-primary active:scale-90 transition duration-200  "
                 >
                   <UserIcon className="h-5 font-bold " />
                   <ChevronDownIcon className="h-5" />
                 </button>
+                {isDropDown && (
+                  <div className="absolute w-full top-14 left-0 rounded-xl shadow-xl bg-yellow">
+                    {authState.user.isHost && (
+                      <>
+                        <div
+                          onClick={(e) => {
+                            setIsTipFormOpen(true);
+                          }}
+                          className=" cursor-pointer text-center py-2   border-b-grayDark  "
+                        >
+                          Host your Trip
+                        </div>
+                        <div
+                          onClick={handleClick}
+                          className=" cursor-pointer text-center py-2   border-b-grayDark  "
+                        >
+                          My Trips
+                        </div>
+                      </>
+                    )}
+                    <div className=" cursor-pointer text-center py-2  ">
+                      Help
+                    </div>
+                    <div
+                      onClick={(e) => logout()}
+                      className=" cursor-pointer text-center py-2"
+                    >
+                      Sign Out
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}
           {isRegisterOpen && (
             <Register closeModal={(e) => handleRegisterClose(e)} />
+          )}
+          {isTipFormOpen && (
+            <TipForm closeModal={(e) => handleTipFormClose(e)} />
           )}
         </div>
       </header>
@@ -86,11 +135,14 @@ function Header({ authState }) {
 }
 Header.propTypes = {
   authState: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   authState: state.authState,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  logout,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -29,7 +29,16 @@ const getTips = async (req, res) => {
     tips = await Tip.find().limit(limit).sort("-createdAt");
     return res.status(200).json({ tips: tips });
   } catch (error) {
-    res.status(500).json({ message: message.error });
+    res.status(500).json({ error });
+  }
+};
+
+const getTipsByUser = async (req, res) => {
+  try {
+    const tips = await Tip.find({ host: req.verifiedUser.id });
+    return res.status(200).json({ tips: tips });
+  } catch (error) {
+    res.status(500).json({ error });
   }
 };
 
@@ -94,8 +103,27 @@ const updateTip = async (req, res) => {
   }
 };
 
+const deleteTip = async (req, res) => {
+  const id = req.params.id;
+  let deletedTip = null;
+
+  try {
+    const tip = await Tip.findById(id);
+    if (tip.host.toString() === req.verifiedUser.id) {
+      deletedTip = await Tip.findByIdAndDelete(id);
+      
+    }
+
+    return res.status(200).json({ Tip: deletedTip });
+  } catch (error) {
+    res.status(500).json({ message: message.error });
+  }
+};
+
 module.exports.createTip = createTip;
 module.exports.getTip = getTip;
 module.exports.getTips = getTips;
 module.exports.searchTip = searchTip;
 module.exports.updateTip = updateTip;
+module.exports.getTipsByUser = getTipsByUser;
+module.exports.deleteTip = deleteTip;
