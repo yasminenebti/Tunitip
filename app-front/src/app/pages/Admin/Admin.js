@@ -97,6 +97,7 @@ function Admin() {
         {analyticOpen && <AdminAnalytics />}
         {isUserOpen && <AdminUser />}
         {isCatOpen && <AdminCategory />}
+        {!analyticOpen && !isUserOpen && !isCatOpen && <div>hello Admin</div>}
       </div>
     </div>
   );

@@ -50,13 +50,23 @@ router.post("/login", async (req, res) => {
       return res.status(403).json({ message: "Wrong Email/password" });
     }
     const token = jwt.sign(
-      { id: user.id ,isHost: user.isHost },
+      { id: user.id, isHost: user.isHost },
       process.env.TOKEN_KEY,
       {
         expiresIn: "2 days",
       }
     );
     return res.status(200).json({ token: token, user: user });
+  } catch (err) {
+    return res.status(500).json({ message: err });
+  }
+});
+
+router.get("/", async (req, res) => {
+  try {
+    var allUsers = await User.find().count();
+
+    return res.status(200).json({ users: allUsers });
   } catch (err) {
     return res.status(500).json({ message: err });
   }

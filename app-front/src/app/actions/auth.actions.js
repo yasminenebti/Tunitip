@@ -8,6 +8,22 @@ const AUTH_ERROR = "AUTH_ERROR";
 const AUTH_LOAD = "AUTH_LOAD";
 const AUTH_LOADING = "AUTH_LOADING";
 const LOGOUT = "LOGOUT";
+const GET_USERS = "GET_USERS";
+
+export const allUsers = () => async (dispatch) => {
+  try {
+    const res = await axios.get("http://localhost:5000/api/auth");
+    dispatch({
+      type: GET_USERS,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: AUTH_ERROR,
+      payload: error,
+    });
+  }
+};
 
 export const load = () => async (dispatch) => {
   dispatch({

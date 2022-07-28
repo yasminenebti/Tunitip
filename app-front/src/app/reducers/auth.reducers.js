@@ -6,18 +6,27 @@ const REGISTER_ERROR = "REGISTER_ERROR";
 const AUTH_LOADING = "AUTH-LOADING";
 const LOGOUT = "LOGOUT";
 const AUTH_ERROR = "AUTH_ERROR";
+const GET_USERS = "GET_USERS";
 
 const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: null,
   loading: true,
   user: null,
+  users: [],
   error: {},
 };
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
+    case GET_USERS: {
+      return {
+        ...state,
+        users: payload.users,
+        loading: false,
+      };
+    }
     case REGISTER_SUCCESS:
       return {
         ...state,
