@@ -7,6 +7,8 @@ const GET_MY_TIPS = "GET_MY_TIPS";
 const DELETE_TIP = "DELETE_TIP";
 const TIPS_LOADING = "TIPS_LOADING";
 const CREATE_TIP = "CREATE_TIP";
+const FILTER_TIP = "FILTER_TIP";
+const UPDATE_TIP = "UPDATE_TIP";
 
 export const createTip = (data) => async (dispatch) => {
   dispatch({
@@ -19,13 +21,41 @@ export const createTip = (data) => async (dispatch) => {
   };
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/tips",
+      "http://localhost:5000/api/tips/",
       data,
       config
     );
 
     dispatch({
       type: CREATE_TIP,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: TIPS_ERROR,
+      payload: err,
+    });
+  }
+};
+
+export const updateTip = (data, id) => async (dispatch) => {
+  dispatch({
+    type: TIPS_LOADING,
+  });
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  try {
+    const res = await axios.put(
+      `http://localhost:5000/api/tips/${id}`,
+      data,
+      config
+    );
+
+    dispatch({
+      type: UPDATE_TIP,
       payload: res.data,
     });
   } catch (err) {
@@ -68,6 +98,7 @@ export const getMyTips = () => async (dispatch) => {
     });
   }
 };
+
 export const getTipByCategory = (categoryId) => async (dispatch) => {
   try {
     const res = await axios.get(
@@ -86,18 +117,16 @@ export const getTipByCategory = (categoryId) => async (dispatch) => {
 };
 
 export const getTip = (id) => async (dispatch) => {
+  dispatch({
+    type: TIPS_LOADING,
+  });
   try {
     const res = await axios.get(`http://localhost:5000/api/tips/${id}`);
     dispatch({
       type: GET_TIP,
       payload: res.data,
     });
-  } catch (message) {
-    dispatch({
-      type: TIPS_ERROR,
-      payload: message.error,
-    });
-  }
+  } catch (error) {}
 };
 
 export const deleteTip = (id) => async (dispatch) => {
@@ -108,6 +137,23 @@ export const deleteTip = (id) => async (dispatch) => {
     const res = await axios.delete(`http://localhost:5000/api/tips/${id}`);
     dispatch({
       type: DELETE_TIP,
+      payload: res.data,
+    });
+  } catch (error) {}
+};
+
+export const filterTip = (query) => async (dispatch) => {
+  let querySearch = "?";
+  query.forEach((value, key) => {
+    querySearch += key + "=" + value + "&";
+  });
+
+  try {
+    const res = axios.get(
+      `http://localhost:5000/api/tips/search${querySearch}`
+    );
+    dispatch({
+      type: FILTER_TIP,
       payload: res.data,
     });
   } catch (error) {

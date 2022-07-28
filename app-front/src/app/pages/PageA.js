@@ -16,7 +16,12 @@ const PageA = ({ getTips, tipState }) => {
         <div className="grid grid-cols-5 gap-4 ">
           {tipState.tips.map((tip) => {
             return (
-              <DisplayTips key={tip.id} image={tip.image} name={tip.name} />
+              <DisplayTips
+                id={tip._id}
+                key={tip._id}
+                image={tip.image}
+                name={tip.name}
+              />
             );
           })}
         </div>

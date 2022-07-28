@@ -16,7 +16,7 @@ function Category({ categoryState, getCategories }) {
             return (
               <Link
                 to={`/search?category=${cat.name}`}
-                key={cat.id}
+                key={cat._id}
                 className="cursor-pointer border-2 rounded-xl px-4 py-1 border-none hover:shadow-md"
               >
                 {cat.name}

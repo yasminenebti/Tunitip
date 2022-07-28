@@ -23,6 +23,7 @@ const tipRoutes = require("./routes/tip.routes");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use("/uploads", express.static("uploads"));
 
 app.use("/api/category", categoryRoutes);
 app.use("/api/auth", authRoutes);

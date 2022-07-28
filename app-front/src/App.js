@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import setAuthToken from "./app/utils/setAuthToken";
 import { load } from "./app/actions/auth.actions";
 import PrivateRoute from "./app/Router/PrivateRoute";
+import TipInformation from "./app/pages/TipInformation";
 
 function App() {
   useEffect(() => {
@@ -35,6 +36,7 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path="/tips/:tipId" element={<TipInformation />} />
         </Routes>
       </Router>
     </Provider>

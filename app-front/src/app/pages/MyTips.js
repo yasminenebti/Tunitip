@@ -20,6 +20,12 @@ function MyTips({ tipState, getMyTips }) {
                 tipId={tip._id}
                 image={tip.image}
                 name={tip.name}
+                description={tip.description}
+                place={tip.place}
+                price={tip.price}
+                beds={tip.beds}
+                baths={tip.baths}
+                category={tip.category}
               />
             );
           })}

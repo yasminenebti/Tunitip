@@ -1,22 +1,49 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "../hooks";
 import SearchTip from "./SearchTip";
+import { filterTip } from "../actions/tip.actions";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-function Search() {
+function Search({ filterTip, tipState }) {
   const query = useQuery();
+  useEffect(() => {
+    filterTip(query);
+  }, [query.get("q"), query.get("category")]);
+
   return (
-    <>
-      <div>{query.get("category")}</div>
+    <div className="p-20">
       <div className="p-7 grid grid-cols-4 gap-4">
-        <SearchTip
-          price="120"
-          host="yasmine"
-          place="marsa , Tunisia"
-          image="https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-        />
+        {tipState.tips.length > 0 ? (
+          <>
+            {tipState.tips.map((tip) => {
+              return (
+                <SearchTip
+                  key={tip._id}
+                  price={tip.price}
+                  place={tip.place}
+                  image={tip.image}
+                />
+              );
+            })}
+          </>
+        ) : (
+          "hello"
+        )}
       </div>
-    </>
+    </div>
   );
 }
 
-export default Search;
+Search.propTypes = {
+  tipState: PropTypes.object.isRequired,
+  filterTip: PropTypes.func.isRequired,
+};
+const mapStateToProps = (state) => ({
+  tipState: state.tipState,
+});
+
+const mapDispatchToProps = {
+  filterTip,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

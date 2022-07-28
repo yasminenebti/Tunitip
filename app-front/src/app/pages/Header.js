@@ -18,9 +18,13 @@ function Header({ authState, logout }) {
   const [isDropDown, setIsDopDown] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isTipFormOpen, setIsTipFormOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   function handleClick() {
     navigate("/myTrips");
+  }
+  function searchClick() {
+    navigate(`/search?q=${searchQuery}`);
   }
 
   const handleSignInClose = (e) => {
@@ -46,11 +50,16 @@ function Header({ authState, logout }) {
 
         <div className=" flex flex-grow items-center rounded-full border-2 border-yellow shadow-md ">
           <input
+            onChange={(e) => setSearchQuery(e.target.value)}
+            value={searchQuery}
             className="outline-none flex-grow pl-5 bg-transparent text-sm text-text italic"
             type="text"
             placeholder="search here"
           />
-          <SearchIcon className="hidden h-9 bg-primary rounded-full text-yellow  cursor-pointer p-2 md:inline-flex md:mx-2 active:scale-90 transition duration-200" />
+          <SearchIcon
+            onClick={searchClick}
+            className="hidden h-9 bg-primary rounded-full text-yellow  cursor-pointer p-2 md:inline-flex md:mx-2 active:scale-90 transition duration-200"
+          />
         </div>
 
         <div className="flex items-center justify-end space-x-1">
@@ -126,7 +135,7 @@ function Header({ authState, logout }) {
             <Register closeModal={(e) => handleRegisterClose(e)} />
           )}
           {isTipFormOpen && (
-            <TipForm closeModal={(e) => handleTipFormClose(e)} />
+            <TipForm method="post" closeModal={(e) => handleTipFormClose(e)} />
           )}
         </div>
       </header>

@@ -1,11 +1,12 @@
 const Tip = require("../models/tip");
 const Category = require("../models/category");
 const createTip = async (req, res) => {
+  console.log(req.file);
   const newTip = new Tip({
     name: req.body.name,
     place: req.body.place,
     description: req.body.description,
-    image: req.body.image,
+    image: req.protocol + "://" + req.hostname + ":5000" + "/" + req.file.path,
     price: req.body.price,
     review: req.body.review,
     rooms: req.body.rooms,
@@ -50,11 +51,15 @@ const searchTip = async (req, res) => {
   if (categoryQuery) {
     category = await Category.findOne({ name: categoryQuery });
   }
+  const query = {
+    category: category,
+    name: { $regex: `.*${q}.*` },
+  };
+  if (!query.category) {
+    delete query["category"];
+  }
   try {
-    const tip = await Tip.find({
-      category: category?.id,
-      name: { $regex: `.*${q}.*` },
-    });
+    const tip = await Tip.find(query);
     return res.status(200).send({ Tip: tip });
   } catch (error) {
     res.status(500).json({ message: message.error });
@@ -80,21 +85,31 @@ const searchTip = async (req, res) => {
 
 const getTip = async (req, res) => {
   const id = req.params.id;
-  const tip = await Tip.findById(id);
   try {
+    const tip = await Tip.findById(id);
     return res.status(200).json({ Tip: tip });
   } catch (error) {
-    res.status(500).json({ message: message.error });
+    res.status(500).json({ message: error });
   }
 };
 const updateTip = async (req, res) => {
   const id = req.params.id;
   const data = { ...req.body };
+  if (req.file) {
+    if (req.hostname === "localhost") {
+      data.image =
+        req.protocol + "://" + req.hostname + ":5000" + "/" + req.file.path;
+    } else {
+      imageUrl = req.protocol + "://" + req.hostname + "/" + req.file.path;
+    }
+  } else {
+    delete data["image"];
+  }
   try {
     const tip = await Tip.findById(id);
     if (tip.host.toString() === req.verifiedUser.id) {
       const updatedTip = await Tip.findByIdAndUpdate(id, data, { new: true });
-      return res.status(201).json({ Tip: updatedTip });
+      return res.status(200).json({ Tip: updatedTip });
     } else {
       return res.status(403).json({ message: "You're not the host" });
     }
@@ -111,7 +126,6 @@ const deleteTip = async (req, res) => {
     const tip = await Tip.findById(id);
     if (tip.host.toString() === req.verifiedUser.id) {
       deletedTip = await Tip.findByIdAndDelete(id);
-      
     }
 
     return res.status(200).json({ Tip: deletedTip });

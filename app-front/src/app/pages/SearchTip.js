@@ -1,6 +1,6 @@
 import React from "react";
 
-function SearchTip({ image, place, host, price }) {
+function SearchTip({ image, place, price }) {
   return (
     <div className="p-5 h-full  max-h-96 group">
       <img
@@ -11,7 +11,7 @@ function SearchTip({ image, place, host, price }) {
 
       <div className="h-1/5 text-grayDark">
         <div>{place}</div>
-        <div>Hosted By {host}</div>
+
         <div className="">{price}</div>
       </div>
     </div>
