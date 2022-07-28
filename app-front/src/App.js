@@ -12,6 +12,8 @@ import setAuthToken from "./app/utils/setAuthToken";
 import { load } from "./app/actions/auth.actions";
 import PrivateRoute from "./app/Router/PrivateRoute";
 import TipInformation from "./app/pages/TipInformation";
+import AdminRoute from "./app/Router/AdminRoute";
+import Admin from "./app/pages/Admin/Admin";
 
 function App() {
   useEffect(() => {
@@ -34,6 +36,14 @@ function App() {
               <PrivateRoute>
                 <MyTips />
               </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <Admin />
+              </AdminRoute>
             }
           />
           <Route path="/tips/:tipId" element={<TipInformation />} />

@@ -26,6 +26,9 @@ function Header({ authState, logout }) {
   function searchClick() {
     navigate(`/search?q=${searchQuery}`);
   }
+  function adminClick() {
+    navigate("/admin");
+  }
 
   const handleSignInClose = (e) => {
     setIsOpen(e);
@@ -126,6 +129,16 @@ function Header({ authState, logout }) {
                     >
                       Sign Out
                     </div>
+                    {authState.user.isAdmin && (
+                      <>
+                        <div
+                          onClick={adminClick}
+                          className=" cursor-pointer text-center py-2   border-b-grayDark  "
+                        >
+                          Admin Dashboard
+                        </div>
+                      </>
+                    )}
                   </div>
                 )}
               </div>

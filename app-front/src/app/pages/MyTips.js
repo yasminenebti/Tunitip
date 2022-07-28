@@ -11,7 +11,7 @@ function MyTips({ tipState, getMyTips }) {
   return (
     <>
       {tipState.tips.length > 0 ? (
-        <div className="grid grid-cols-5 gap-4 ">
+        <div className="p-10 grid grid-cols-5 gap-4 ">
           {tipState.tips.map((tip) => {
             console.log(tip.id);
             return (

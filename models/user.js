@@ -25,6 +25,7 @@ const UserSchema = new mongoose.Schema(
     },
     isHost: { type: Boolean, default: false },
     phoneNumber: { type: Number },
+    isAdmin: { type: Boolean, default: false },
   },
   {
     timestamps: true,
