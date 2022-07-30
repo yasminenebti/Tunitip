@@ -1,7 +1,7 @@
 const Tip = require("../models/tip");
 const Category = require("../models/category");
+const User = require("../models/user");
 const createTip = async (req, res) => {
-  console.log(req.file);
   const newTip = new Tip({
     name: req.body.name,
     place: req.body.place,
@@ -27,7 +27,10 @@ const getTips = async (req, res) => {
   const limit = req.query.limit ? parseInt(req.query.limit) : null;
   try {
     let tips = [];
-    tips = await Tip.find().limit(limit).sort("-createdAt");
+    tips = await Tip.find().limit(limit).sort("-createdAt").populate({
+      path: "host",
+      select: "phoneNumber",
+    });
     return res.status(200).json({ tips: tips });
   } catch (error) {
     res.status(500).json({ error });
@@ -134,6 +137,16 @@ const deleteTip = async (req, res) => {
   }
 };
 
+const getHostNumber = async (req, res) => {
+  const hostId = req.params.hostId;
+  try {
+    const phoneNumber = await User.findById(hostId).select("phoneNumber");
+    return res.status(200).json({ phoneNumber: phoneNumber });
+  } catch (error) {
+    res.status(500).json({ message: message.error });
+  }
+};
+
 module.exports.createTip = createTip;
 module.exports.getTip = getTip;
 module.exports.getTips = getTips;
@@ -141,3 +154,4 @@ module.exports.searchTip = searchTip;
 module.exports.updateTip = updateTip;
 module.exports.getTipsByUser = getTipsByUser;
 module.exports.deleteTip = deleteTip;
+module.exports.getHostNumber = getHostNumber;

@@ -6,7 +6,8 @@ const TIPS_LOADING = "TIPS_LOADING";
 const DELETE_TIP = "DELETE_TIP";
 const CREATE_TIP = "CREATE_TIP";
 const GET_TIPS_BY_CATEGORY = "GET_TIPS_BY_CATEGORY";
-const FILTER_TIP = "FILTER_TIP";
+const SEARCH_TIP = "SEARCH_TIP";
+
 const UPDATE_TIP = "UPDATE_TIP";
 
 const initialState = {
@@ -19,6 +20,12 @@ const initialState = {
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
+    case SEARCH_TIP:
+      return {
+        ...state,
+        tips: payload.tips,
+        loading: false,
+      };
     case UPDATE_TIP: {
       return {
         ...state,
@@ -51,12 +58,7 @@ export default function (state = initialState, action) {
         tips: payload.tips,
         loading: false,
       };
-    case FILTER_TIP:
-      return {
-        ...state,
-        tips: payload.tips,
-        loading: false,
-      };
+
     case GET_TIPS_BY_CATEGORY:
       return {
         ...state,
@@ -80,6 +82,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         error: payload,
+        loading: false,
       };
     default:
       return state;

@@ -19,6 +19,7 @@ function TipForm({
   name,
   place,
   price,
+  rooms,
   description,
   beds,
   baths,
@@ -36,6 +37,7 @@ function TipForm({
     beds: beds ? beds : "",
     baths: baths ? baths : "",
     category: category ? category : "",
+    rooms: rooms ? rooms : "",
   });
   const [tipDocument, setTipDocument] = useState(null);
   const ref = useRef(null);
@@ -52,6 +54,7 @@ function TipForm({
     formData.append("price", tipData.price);
     formData.append("beds", tipData.beds);
     formData.append("baths", tipData.baths);
+    formData.append("rooms", tipData.rooms);
     formData.append("category", tipData.category);
     if (method === "post") {
       await createTip(formData);
@@ -76,42 +79,44 @@ function TipForm({
   return (
     <div>
       <div className="fixed z-10 top-0 left-0 w-full h-full flex items-center justify-center bg-grayDark bg-opacity-60 overflow-y-auto ">
-        <div ref={ref} className="w-1/3 h-2/3 bg-yellow rounded-xl ">
+        <div ref={ref} className="w-1/4 h-3/4 bg-yellow rounded-xl space-x-2 ">
           <button
             onClick={() => closeModal(false)}
-            className="z-20 flex justify-end py-2 px-4 font-semibold hover:shadow-md"
+            className="flex justify-end pt-2 px-4 font-semibold hover:shadow-md"
           >
             X
           </button>
-          <form onSubmit={(e) => onSubmitData(e)} className="mt-8">
+          <form onSubmit={(e) => onSubmitData(e)} className="">
             <div className="mx-auto p-5">
-              <label className="text-md text-grayDark py-5" htmlFor="name">
-                Name
-              </label>
-              <input
-                onChange={(e) => handleChange(e)}
-                className="text-md block px-3 py-2  rounded-lg w-full bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
-                type="text"
-                name="name"
-                required
-                value={tipData.name}
-              />
-              <label className="text-md text-grayDark py-5" htmlFor="place">
-                place
-              </label>
-              <input
-                onChange={(e) => handleChange(e)}
-                className="text-md block px-3 py-2  rounded-lg w-full bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
-                type="text"
-                name="place"
-                required
-                value={tipData.place}
-              />
+              <div className="flex space-x-2 pb-3 justify-center items-center  ">
+                <label className="text-md text-grayDark py-2 " htmlFor="name">
+                  Name
+                </label>
+                <input
+                  onChange={(e) => handleChange(e)}
+                  className="text-md  px-3 py-2  rounded-lg w-full bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
+                  type="text"
+                  name="name"
+                  required
+                  value={tipData.name}
+                />
+                <label className="text-md text-grayDark py-2 " htmlFor="place">
+                  place
+                </label>
+                <input
+                  onChange={(e) => handleChange(e)}
+                  className="text-md block px-3 py-2  rounded-lg w-full bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
+                  type="text"
+                  name="place"
+                  required
+                  value={tipData.place}
+                />
+              </div>
               <label
-                className="text-md text-grayDark py-5"
+                className="text-md  text-grayDark py-9"
                 htmlFor="description"
               >
-                description
+                Description
               </label>
               <textarea
                 onChange={(e) => handleChange(e)}
@@ -131,37 +136,55 @@ function TipForm({
                 name="image"
                 value={tipData.image}
               />
-              <div className="flex py-3">
-                <label className="text-md text-grayDark py-5" htmlFor="price">
+
+              <div className="flex pt-3 gap-3">
+                <label className="text-md text-grayDark py-2" htmlFor="price">
                   Price
                 </label>
                 <input
                   onChange={(e) => handleChange(e)}
-                  className="text-md w-full   rounded-lg  bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
+                  className="text-md  w-24  rounded-lg  bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
                   type="Number"
                   min={0}
                   name="price"
                   required
                   value={tipData.price}
                 />
-                <label className="text-md text-grayDark py-5" htmlFor="beds">
-                  beds
+                <label className="text-md text-grayDark py-2" htmlFor="rooms">
+                  Rooms
                 </label>
                 <input
                   onChange={(e) => handleChange(e)}
-                  className="text-md w-full    rounded-lg  bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
+                  className="text-md  w-24   rounded-lg  bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
+                  type="Number"
+                  min={0}
+                  name="rooms"
+                  required
+                  value={tipData.rooms}
+                />
+              </div>
+              <div className="flex pt-3 gap-3 ">
+                <label className="text-md text-grayDark py-2 " htmlFor="beds">
+                  Beds
+                </label>
+                <input
+                  onChange={(e) => handleChange(e)}
+                  className="text-md  w-24    rounded-lg  bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
                   type="Number"
                   min={0}
                   name="beds"
                   required
                   value={tipData.beds}
                 />
-                <label className="text-md text-grayDark py-5" htmlFor="baths">
-                  baths
+                <label
+                  className="text-md text-grayDark py-2 pr-3"
+                  htmlFor="baths"
+                >
+                  Baths
                 </label>
                 <input
                   onChange={(e) => handleChange(e)}
-                  className="text-md  w-full    rounded-lg bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
+                  className="text-md  w-24     rounded-lg bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
                   type="Number"
                   min={0}
                   name="baths"
@@ -169,9 +192,10 @@ function TipForm({
                   value={tipData.baths}
                 />
               </div>
-              <div>
+
+              <div className="pt-4">
                 <label
-                  className="text-md text-grayDark py-5"
+                  className="text-md text-grayDark py-5 "
                   htmlFor="category"
                 >
                   Category
@@ -193,23 +217,22 @@ function TipForm({
                   })}
                 </select>
               </div>
+              {method === "post" ? (
+                <button
+                  type="submit"
+                  className="mt-5 text-lg font-bold bg-primary w-full text-white rounded-lg py-3  shadow-xl "
+                >
+                  Create
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="mt-5 text-lg font-bold bg-primary w-full text-white rounded-lg py-3  shadow-xl"
+                >
+                  Update
+                </button>
+              )}
             </div>
-
-            {method === "post" ? (
-              <button
-                type="submit"
-                className="mt-3 text-lg font-bold bg-primary w-full text-white rounded-lg px-4 py-3 block shadow-xl "
-              >
-                Create
-              </button>
-            ) : (
-              <button
-                type="submit"
-                className="mt-3 text-lg font-bold bg-primary w-full text-white rounded-lg px-4 py-3 block shadow-xl"
-              >
-                Update
-              </button>
-            )}
           </form>
         </div>
       </div>

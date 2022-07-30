@@ -73,7 +73,7 @@ function Header({ authState, logout }) {
                 onClick={(e) => {
                   setIsOpen(true);
                 }}
-                className="flex items-center  font-semibold space-x-1 justify-end border-2 p-2 border-primary shadow-md hover:shadow-xl rounded-full cursor-pointer text-primary active:scale-90 transition duration-200"
+                className="flex items-center  font-semibold space-x-1 justify-end border-2 p-2 border-primary shadow-md hover:shadow-xl rounded-lg cursor-pointer text-primary active:scale-90 transition duration-200"
               >
                 Login
               </button>
@@ -81,7 +81,7 @@ function Header({ authState, logout }) {
                 onClick={(e) => {
                   setIsRegisterOpen(true);
                 }}
-                className="flex items-center font-semibold  space-x-1 justify-end border-2 p-2 border-primary shadow-md hover:shadow-xl rounded-full cursor-pointer text-yellow bg-primary active:scale-90 transition duration-200"
+                className="flex items-center font-semibold  space-x-1 justify-end border-2 p-2 border-primary shadow-md hover:shadow-xl rounded-lg cursor-pointer text-yellow bg-primary active:scale-90 transition duration-200"
               >
                 Register
               </button>

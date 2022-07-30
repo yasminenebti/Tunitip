@@ -9,13 +9,13 @@ function Category({ categoryState, getCategories }) {
     getCategories();
   }, [getCategories]);
   return (
-    <div>
+    <><div>
       {categoryState.categories.length > 0 ? (
         <div className="flex justify-center items-center space-x-4 bg-yellow py-2 ">
           {categoryState.categories.map((cat) => {
             return (
               <Link
-                to={`/search?category=${cat.name}`}
+                to={`/category?category=${cat._id}`}
                 key={cat._id}
                 className="cursor-pointer border-2 rounded-xl px-4 py-1 border-none hover:shadow-md"
               >
@@ -27,7 +27,8 @@ function Category({ categoryState, getCategories }) {
       ) : (
         "hello"
       )}
-    </div>
+
+    </div></>
   );
 }
 Category.propTypes = {

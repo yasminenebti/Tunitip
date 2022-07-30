@@ -3,8 +3,12 @@ const GET_CATEGORIES = "GET_CATEGORIES";
 const CREATE_CATEGORIES = "CREATE_CATEGORIES";
 const DELETE_CATEGORY = "DELETE_CATEGORY";
 const CATEGORIES_ERROR = "CATEGORIES_ERROR";
+const CATEGORY_LOADING = "CATEGORY_LOADING";
 
 export const getCategories = () => async (dispatch) => {
+  dispatch({
+    type: CATEGORY_LOADING,
+  });
   try {
     const res = await axios.get("http://localhost:5000/api/category");
     dispatch({
@@ -21,6 +25,9 @@ export const getCategories = () => async (dispatch) => {
 };
 
 export const createCategories = (data) => async (dispatch) => {
+  dispatch({
+    type: CATEGORY_LOADING,
+  });
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -46,6 +53,9 @@ export const createCategories = (data) => async (dispatch) => {
 };
 
 export const deleteCategory = (id) => async (dispatch) => {
+  dispatch({
+    type: CATEGORY_LOADING,
+  });
   try {
     const res = await axios.delete(`http://localhost:5000/api/category/${id}`);
     dispatch({

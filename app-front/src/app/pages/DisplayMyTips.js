@@ -17,6 +17,7 @@ function DisplayMyTips({
   beds,
   baths,
   category,
+  rooms,
 }) {
   const [isTipFormOpen, setIsTipFormOpen] = useState(false);
   const handleTipFormClose = (e) => {
@@ -51,6 +52,7 @@ function DisplayMyTips({
             beds={beds}
             baths={baths}
             category={category}
+            rooms={rooms}
           />
         )}
         <button

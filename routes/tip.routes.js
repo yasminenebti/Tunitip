@@ -24,8 +24,10 @@ router.post(
   isHost,
   tipRoutes.createTip
 );
-router.get("/search", tipRoutes.searchTip);
+
+router.get("/category", tipRoutes.searchTip);
 router.get("/myTrips", verifyToken, isHost, tipRoutes.getTipsByUser);
+router.get("/host/:hostId", tipRoutes.getHostNumber);
 router.get("/:id", tipRoutes.getTip);
 
 router.put(

@@ -3,6 +3,7 @@ import { getTips } from "../actions/tip.actions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import DisplayTips from "./DisplayTips";
+import Footer from "./Footer";
 
 const PageA = ({ getTips, tipState }) => {
   useEffect(() => {
@@ -10,24 +11,27 @@ const PageA = ({ getTips, tipState }) => {
   }, [getTips]);
   return (
     <>
-      <div>PageA</div>
-
-      {tipState.tips.length > 0 ? (
-        <div className="grid grid-cols-5 gap-4 ">
-          {tipState.tips.map((tip) => {
-            return (
-              <DisplayTips
-                id={tip._id}
-                key={tip._id}
-                image={tip.image}
-                name={tip.name}
-              />
-            );
-          })}
-        </div>
-      ) : (
-        ""
-      )}
+      <div className=" ">
+        {tipState.tips.length > 0 ? (
+          <div className="grid grid-cols-4 p-5   ">
+            {tipState.tips.map((tip) => {
+              return (
+                <DisplayTips
+                  id={tip._id}
+                  key={tip._id}
+                  image={tip.image}
+                  name={tip.name}
+                  place={tip.place}
+                  price={tip.price}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          ""
+        )}
+       
+      </div>
     </>
   );
 };

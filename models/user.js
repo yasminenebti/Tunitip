@@ -23,7 +23,7 @@ const UserSchema = new mongoose.Schema(
       minlength: 8,
       required: true,
     },
-    isHost: { type: Boolean, default: false },
+    isHost: { type: Boolean, default: true },
     phoneNumber: { type: Number },
     isAdmin: { type: Boolean, default: false },
   },

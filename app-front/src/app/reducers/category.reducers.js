@@ -2,6 +2,7 @@ const GET_CATEGORIES = "GET_CATEGORIES";
 const CATEGORIES_ERROR = "CATEGORIES_ERROR";
 const CREATE_CATEGORIES = "CREATE_CATEGORIES";
 const DELETE_CATEGORY = "DELETE_CATEGORY";
+const CATEGORY_LOADING = "CATEGORY_LOADING";
 
 const initialState = {
   categories: [],
@@ -14,6 +15,11 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case CATEGORY_LOADING:
+      return {
+        ...state,
+        loading: true,
+      };
     case CREATE_CATEGORIES:
       return {
         ...state,
@@ -30,6 +36,7 @@ export default function (state = initialState, action) {
     case CATEGORIES_ERROR:
       return {
         ...state,
+        loading: false,
         error: payload,
       };
     case DELETE_CATEGORY:

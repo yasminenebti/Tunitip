@@ -7,8 +7,9 @@ const GET_MY_TIPS = "GET_MY_TIPS";
 const DELETE_TIP = "DELETE_TIP";
 const TIPS_LOADING = "TIPS_LOADING";
 const CREATE_TIP = "CREATE_TIP";
-const FILTER_TIP = "FILTER_TIP";
+const SEARCH_TIP = "SEARCH_TIP";
 const UPDATE_TIP = "UPDATE_TIP";
+
 
 export const createTip = (data) => async (dispatch) => {
   dispatch({
@@ -67,6 +68,9 @@ export const updateTip = (data, id) => async (dispatch) => {
 };
 
 export const getTips = (limit) => async (dispatch) => {
+  dispatch({
+    type: TIPS_LOADING,
+  });
   try {
     const res = await axios.get(
       `http://localhost:5000/api/tips?limit=${limit}`
@@ -84,6 +88,9 @@ export const getTips = (limit) => async (dispatch) => {
   }
 };
 export const getMyTips = () => async (dispatch) => {
+  dispatch({
+    type: TIPS_LOADING,
+  });
   try {
     const res = await axios.get(`http://localhost:5000/api/tips/myTrips`);
     dispatch({
@@ -126,7 +133,12 @@ export const getTip = (id) => async (dispatch) => {
       type: GET_TIP,
       payload: res.data,
     });
-  } catch (error) {}
+  } catch (error) {
+    dispatch({
+      type: TIPS_ERROR,
+      payload: error,
+    });
+  }
 };
 
 export const deleteTip = (id) => async (dispatch) => {
@@ -139,21 +151,25 @@ export const deleteTip = (id) => async (dispatch) => {
       type: DELETE_TIP,
       payload: res.data,
     });
-  } catch (error) {}
+  } catch (error) {
+    dispatch({
+      type: TIPS_ERROR,
+      payload: error,
+    });
+  }
 };
 
-export const filterTip = (query) => async (dispatch) => {
-  let querySearch = "?";
-  query.forEach((value, key) => {
-    querySearch += key + "=" + value + "&";
+export const searchTip = (category) => async (dispatch) => {
+  dispatch({
+    type: TIPS_LOADING,
   });
 
   try {
     const res = axios.get(
-      `http://localhost:5000/api/tips/search${querySearch}`
+      `http://localhost:5000/api/tips/category?category=${category}`
     );
     dispatch({
-      type: FILTER_TIP,
+      type: SEARCH_TIP,
       payload: res.data,
     });
   } catch (error) {
@@ -163,3 +179,4 @@ export const filterTip = (query) => async (dispatch) => {
     });
   }
 };
+

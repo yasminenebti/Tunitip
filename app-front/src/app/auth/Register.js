@@ -28,16 +28,16 @@ function Register({ closeModal, register }) {
     });
   };
   return (
-    <div className="fixed z-50 h-full  w-full top-0 left-0 flex items-center justify-center  bg-grayDark bg-opacity-20 ">
-      <div ref={ref} className="w-1/3 h-2/3 bg-yellow rounded-xl ">
+    <div className="fixed z-50 top-0 left-0 w-full h-full flex items-center justify-center bg-grayDark bg-opacity-20 ">
+      <div ref={ref} className="w-1/4 h-3/4 bg-yellow rounded-xl  ">
         <button
           onClick={() => closeModal(false)}
-          className="z-20 flex justify-end py-2 px-4 font-semibold hover:shadow-md"
+          className=" flex justify-end pt-2  px-4 font-semibold hover:shadow-sm"
         >
           X
         </button>
 
-        <form onSubmit={(e) => onSubmitData(e)} className="mt-8">
+        <form onSubmit={(e) => onSubmitData(e)} className="">
           <div className="flex">
             <div className="mx-auto p-5">
               <label className="text-md text-grayDark py-5" htmlFor="email">

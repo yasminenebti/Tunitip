@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { login } from "../actions/auth.actions";
 import { connect } from "react-redux";
 
-function SignIn({ closeModal, login }) {
+function SignIn({ closeModal, login, authState }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -24,17 +24,17 @@ function SignIn({ closeModal, login }) {
       [e.target.name]: e.target.value,
     });
   };
-  return  (
-    <div className="fixed z-10 top-0 left-0 w-full h-full flex items-center justify-center bg-grayDark bg-opacity-60 ">
-      <div ref={ref} className="w-1/3 h-2/3 bg-yellow rounded-xl ">
+  return (
+    <div className="fixed z-50 top-0 left-0 w-full h-full flex items-center justify-center bg-grayDark bg-opacity-60 ">
+      <div ref={ref} className="w-1/4  h-2/3 bg-yellow rounded-xl ">
         <button
           onClick={() => closeModal(false)}
-          className="z-20 flex justify-end py-2 px-4 font-semibold hover:shadow-md"
+          className=" flex justify-end pt-2 px-4 font-semibold hover:shadow-md"
         >
           X
         </button>
 
-        <form onSubmit={(e) => onSubmitData(e)} className="mt-8">
+        <form onSubmit={(e) => onSubmitData(e)} className="mt-9">
           <div className="mx-auto p-5">
             <label className="text-md text-grayDark py-5" htmlFor="email">
               Email
@@ -64,7 +64,7 @@ function SignIn({ closeModal, login }) {
           <div className="flex justify-end px-3">
             <label className="block text-md text-grayDark italic  my-4">
               <div className="cursor-pointer  border-b border-gray hover:shadow-md">
-                <span>Forgot Password?</span>
+                {/* <span>Forgot Password?</span> */}
               </div>
             </label>
           </div>
@@ -72,7 +72,7 @@ function SignIn({ closeModal, login }) {
             <button
               type="submit"
               className="mt-3 text-lg font-bold 
-                bg-primary w-full text-white rounded-lg
+                bg-primary w-full text-white rounded-md
                 px-4 py-3 block shadow-xl "
             >
               Login
@@ -87,8 +87,7 @@ SignIn.propTypes = {
   login: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
 };
-const mapStateToProps = (state) => ({
-});
+const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {
   login,

@@ -39,11 +39,10 @@ export const load = () => async (dispatch) => {
       type: AUTH_LOAD,
       payload: res.data,
     });
-    console.log(res);
-  } catch (message) {
+  } catch (error) {
     dispatch({
       type: AUTH_ERROR,
-      payload: message.error,
+      payload: error,
     });
   }
 };
@@ -58,15 +57,15 @@ export const login = (data) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     });
+    setAuthToken(res.data.token);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
-    console.log(res);
-  } catch (message) {
+  } catch (error) {
     dispatch({
       type: LOGIN_ERROR,
-      payload: message.error,
+      payload: error,
     });
   }
 };
@@ -89,10 +88,10 @@ export const register = (data) => async (dispatch) => {
       type: REGISTER_SUCCESS,
       payload: res.data,
     });
-  } catch (message) {
+  } catch (error) {
     dispatch({
       type: REGISTER_ERROR,
-      payload: message.error,
+      payload: error,
     });
   }
 };

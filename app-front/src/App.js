@@ -14,6 +14,8 @@ import PrivateRoute from "./app/Router/PrivateRoute";
 import TipInformation from "./app/pages/TipInformation";
 import AdminRoute from "./app/Router/AdminRoute";
 import Admin from "./app/pages/Admin/Admin";
+import SearchCategory from "./app/pages/SearchCategory";
+import Footer from "./app/pages/Footer";
 
 function App() {
   useEffect(() => {
@@ -27,9 +29,12 @@ function App() {
       <Router>
         <Header />
         <Category />
+
         <Routes>
           <Route path="/" element={<PageA />} />
+
           <Route path="/search" element={<Search />} />
+          <Route path="/category" element={<SearchCategory />} />
           <Route
             path="/myTrips"
             element={
@@ -39,6 +44,7 @@ function App() {
             }
           />
           <Route
+            exact
             path="/admin"
             element={
               <AdminRoute>
@@ -46,8 +52,9 @@ function App() {
               </AdminRoute>
             }
           />
-          <Route path="/tips/:tipId" element={<TipInformation />} />
+          <Route path="/tips/:id" element={<TipInformation />} />
         </Routes>
+        <Footer />
       </Router>
     </Provider>
   );
