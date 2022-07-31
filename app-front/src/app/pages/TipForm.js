@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { createTip } from "../actions/tip.actions";
 import { updateTip } from "../actions/tip.actions";
 import { getMyTips } from "../actions/tip.actions";
+import { getTips } from "../actions/tip.actions";
 
 import { getCategories } from "../actions/category.actions";
 
@@ -24,10 +25,14 @@ function TipForm({
   beds,
   baths,
   category,
+  getMyTips,
+  getTips,
 }) {
   useEffect(() => {
     getCategories();
-  }, [getCategories]);
+    getTips();
+    getMyTips();
+  }, [getCategories, getTips, getMyTips]);
   const [tipData, setTipData] = useState({
     name: name ? name : "",
     place: place ? place : "",
@@ -58,6 +63,7 @@ function TipForm({
     formData.append("category", tipData.category);
     if (method === "post") {
       await createTip(formData);
+      await getTips();
     } else {
       console.log(formData);
       await updateTip(formData, id);
@@ -131,7 +137,7 @@ function TipForm({
               </label>
               <input
                 onChange={(e) => handleFileChange(e)}
-                className="text-md block px-3 py-2  rounded-lg w-full bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
+                className="file:bg-silver file:px-4 file:py-1 file:border-none file:rounded-full file:cursor-pointer file:shadow-lg "
                 type="file"
                 name="image"
                 value={tipData.image}
@@ -258,5 +264,6 @@ const mapDispatchToProps = {
   getCategories,
   updateTip,
   getMyTips,
+  getTips,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(TipForm);

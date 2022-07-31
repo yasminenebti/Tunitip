@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { allUsers } from "../../actions/auth.actions";
+import { userList } from "../../actions/auth.actions";
 import { UserIcon } from "@heroicons/react/solid";
 import { FolderIcon } from "@heroicons/react/solid";
 import { ClipboardListIcon } from "@heroicons/react/solid";
 
-function AdminAnalytics({ authState, allUsers, categoryState, tipState }) {
+function AdminAnalytics({ authState, userList, categoryState, tipState }) {
   useEffect(() => {
-    allUsers();
-  }, [allUsers]);
+    userList();
+  }, [userList]);
   return (
     <>
       <div className="grid grid-cols-3 p-5 gap-24 px-52 ">
         <div className="flex space-x-28  bg-purple h-28  w-60 rounded-xl cursor-pointer pt-9 ">
           <div className="px-5 text-grayDark">
-            {authState.users}
+            {authState.users.length}
             <div className="text-sm italic">users</div>
           </div>
           <div className="w-10 text-grayDark">
@@ -52,7 +52,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  allUsers,
+  userList,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminAnalytics);

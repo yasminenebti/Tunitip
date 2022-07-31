@@ -14,6 +14,7 @@ const TipSchema = new mongoose.Schema(
     rooms: { type: Number },
     beds: { type: Number },
     baths: { type: Number },
+    isFavorite: { type: Boolean, default: false },
     host: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
   },

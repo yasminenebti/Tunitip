@@ -2,24 +2,30 @@ const GET_TIPS = "GET_TIPS";
 const GET_TIP = "GET_TIP";
 const TIPS_ERROR = "TIPS_ERROR";
 const GET_MY_TIPS = "GET_MY_TIPS";
-const TIPS_LOADING = "TIPS_LOADING";
+
 const DELETE_TIP = "DELETE_TIP";
 const CREATE_TIP = "CREATE_TIP";
 const GET_TIPS_BY_CATEGORY = "GET_TIPS_BY_CATEGORY";
 const SEARCH_TIP = "SEARCH_TIP";
-
+const TIP_START = "TIP_START";
 const UPDATE_TIP = "UPDATE_TIP";
 
+
 const initialState = {
-  tips: [],
   tip: null,
-  loading: true,
+  tips: [],
+  loading: false,
   error: {},
 };
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
+    case TIP_START: {
+      return {
+        loading: true,
+      };
+    }
     case SEARCH_TIP:
       return {
         ...state,
@@ -40,18 +46,13 @@ export default function (state = initialState, action) {
       };
     }
 
-    case TIPS_LOADING: {
-      return {
-        ...state,
-        loading: true,
-      };
-    }
     case GET_MY_TIPS:
       return {
         ...state,
         tips: payload.tips,
         loading: false,
       };
+    
     case GET_TIPS:
       return {
         ...state,

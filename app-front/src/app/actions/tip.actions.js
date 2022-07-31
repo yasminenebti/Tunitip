@@ -9,11 +9,13 @@ const TIPS_LOADING = "TIPS_LOADING";
 const CREATE_TIP = "CREATE_TIP";
 const SEARCH_TIP = "SEARCH_TIP";
 const UPDATE_TIP = "UPDATE_TIP";
+const TIP_START = "TIP_START";
+
 
 
 export const createTip = (data) => async (dispatch) => {
   dispatch({
-    type: TIPS_LOADING,
+    type: TIP_START,
   });
   const config = {
     headers: {
@@ -22,7 +24,7 @@ export const createTip = (data) => async (dispatch) => {
   };
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/tips/",
+      "http://localhost:5000/api/tips",
       data,
       config
     );
@@ -40,9 +42,6 @@ export const createTip = (data) => async (dispatch) => {
 };
 
 export const updateTip = (data, id) => async (dispatch) => {
-  dispatch({
-    type: TIPS_LOADING,
-  });
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -68,9 +67,6 @@ export const updateTip = (data, id) => async (dispatch) => {
 };
 
 export const getTips = (limit) => async (dispatch) => {
-  dispatch({
-    type: TIPS_LOADING,
-  });
   try {
     const res = await axios.get(
       `http://localhost:5000/api/tips?limit=${limit}`
@@ -88,9 +84,6 @@ export const getTips = (limit) => async (dispatch) => {
   }
 };
 export const getMyTips = () => async (dispatch) => {
-  dispatch({
-    type: TIPS_LOADING,
-  });
   try {
     const res = await axios.get(`http://localhost:5000/api/tips/myTrips`);
     dispatch({
@@ -124,9 +117,6 @@ export const getTipByCategory = (categoryId) => async (dispatch) => {
 };
 
 export const getTip = (id) => async (dispatch) => {
-  dispatch({
-    type: TIPS_LOADING,
-  });
   try {
     const res = await axios.get(`http://localhost:5000/api/tips/${id}`);
     dispatch({
@@ -160,10 +150,6 @@ export const deleteTip = (id) => async (dispatch) => {
 };
 
 export const searchTip = (category) => async (dispatch) => {
-  dispatch({
-    type: TIPS_LOADING,
-  });
-
   try {
     const res = axios.get(
       `http://localhost:5000/api/tips/category?category=${category}`
@@ -179,4 +165,3 @@ export const searchTip = (category) => async (dispatch) => {
     });
   }
 };
-

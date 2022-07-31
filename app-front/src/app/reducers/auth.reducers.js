@@ -6,21 +6,39 @@ const REGISTER_ERROR = "REGISTER_ERROR";
 const AUTH_LOADING = "AUTH-LOADING";
 const LOGOUT = "LOGOUT";
 const AUTH_ERROR = "AUTH_ERROR";
-const GET_USERS = "GET_USERS";
+const LOGIN_START = "LOGIN_START";
+const REGISTER_START = "REGISTER_START";
+const USER_LIST = "USER_LIST";
 
 const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: null,
-  loading: true,
+  loading: false,
   user: null,
   users: [],
-  error: {},
+  error: false,
 };
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
-    case GET_USERS: {
+    case REGISTER_START: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case LOGIN_START: {
+      return {
+        loading: true,
+      };
+    }
+    case AUTH_LOADING:
+      return {
+        ...state,
+        loading: true,
+      };
+    case USER_LIST: {
       return {
         ...state,
         users: payload.users,
@@ -32,11 +50,7 @@ export default function (state = initialState, action) {
         ...state,
         loading: false,
       };
-    case AUTH_LOADING:
-      return {
-        ...state,
-        loading: true,
-      };
+
     case AUTH_LOAD:
       return {
         ...state,
@@ -55,13 +69,20 @@ export default function (state = initialState, action) {
       };
     case AUTH_ERROR:
     case LOGIN_ERROR:
+      localStorage.removeItem("token");
+      return {
+        ...state,
+        isAuthenticated: false,
+        loading: false,
+        error: true,
+      };
     case REGISTER_ERROR:
       localStorage.removeItem("token");
       return {
         ...state,
         isAuthenticated: false,
         loading: false,
-        error: payload,
+        error: true,
       };
     case LOGOUT:
       localStorage.removeItem("token");
@@ -69,7 +90,7 @@ export default function (state = initialState, action) {
         ...state,
         isAuthenticated: false,
         loading: false,
-        error: payload,
+        error: false,
         token: null,
       };
 

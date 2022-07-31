@@ -7,14 +7,16 @@ const REGISTER_ERROR = "REGISTER_ERROR";
 const AUTH_ERROR = "AUTH_ERROR";
 const AUTH_LOAD = "AUTH_LOAD";
 const AUTH_LOADING = "AUTH_LOADING";
+const LOGIN_START = "LOGIN_START";
+const REGISTER_START = "REGISTER_START";
 const LOGOUT = "LOGOUT";
-const GET_USERS = "GET_USERS";
+const USER_LIST = "USER_LIST";
 
-export const allUsers = () => async (dispatch) => {
+export const userList = () => async (dispatch) => {
   try {
-    const res = await axios.get("http://localhost:5000/api/auth");
+    const res = await axios.get("http://localhost:5000/api/auth/userList");
     dispatch({
-      type: GET_USERS,
+      type: USER_LIST,
       payload: res.data,
     });
   } catch (error) {
@@ -49,7 +51,7 @@ export const load = () => async (dispatch) => {
 
 export const login = (data) => async (dispatch) => {
   dispatch({
-    type: AUTH_LOADING,
+    type: LOGIN_START,
   });
   try {
     const res = await axios.post("http://localhost:5000/api/auth/login", data, {
@@ -72,7 +74,7 @@ export const login = (data) => async (dispatch) => {
 
 export const register = (data) => async (dispatch) => {
   dispatch({
-    type: AUTH_LOADING,
+    type: REGISTER_START,
   });
   try {
     const res = await axios.post(

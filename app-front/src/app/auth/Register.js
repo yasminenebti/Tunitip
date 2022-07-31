@@ -19,6 +19,7 @@ function Register({ closeModal, register }) {
   const onSubmitData = async (e) => {
     e.preventDefault();
     await register(formData);
+
     closeModal(false);
   };
   const handleChange = (e) => {

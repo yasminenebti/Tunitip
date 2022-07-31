@@ -20,6 +20,7 @@ router.get("/", tipRoutes.getTips);
 router.post(
   "/",
   upload.single("image"),
+
   verifyToken,
   isHost,
   tipRoutes.createTip
@@ -27,12 +28,14 @@ router.post(
 
 router.get("/category", tipRoutes.searchTip);
 router.get("/myTrips", verifyToken, isHost, tipRoutes.getTipsByUser);
+
 router.get("/host/:hostId", tipRoutes.getHostNumber);
 router.get("/:id", tipRoutes.getTip);
 
 router.put(
   "/:id",
   upload.single("image"),
+
   verifyToken,
   isHost,
   tipRoutes.updateTip

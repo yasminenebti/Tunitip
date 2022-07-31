@@ -69,14 +69,26 @@ function SignIn({ closeModal, login, authState }) {
             </label>
           </div>
           <div className="px-9 py-3">
-            <button
-              type="submit"
-              className="mt-3 text-lg font-bold 
-                bg-primary w-full text-white rounded-md
-                px-4 py-3 block shadow-xl "
-            >
-              Login
-            </button>
+            {!authState.loading ? (
+              <>
+                <button
+                  type="submit"
+                  className="text-lg font-bold bg-primary w-full text-white rounded-md px-4 py-3 shadow-xl "
+                >
+                  Login
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  disabled={authState.loading}
+                  type="submit"
+                  className="text-lg font-bold bg-primary cursor-wait w-full text-white rounded-md px-4 py-3 shadow-xl "
+                >
+                  Login
+                </button>
+              </>
+            )}
           </div>
         </form>
       </div>
@@ -87,7 +99,9 @@ SignIn.propTypes = {
   login: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
 };
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  authState: state.authState,
+});
 
 const mapDispatchToProps = {
   login,

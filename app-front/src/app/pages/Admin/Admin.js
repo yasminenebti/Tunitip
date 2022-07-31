@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import { ChevronLeftIcon } from "@heroicons/react/solid";
-import { ChartBarIcon } from "@heroicons/react/solid";
+
 import { UserIcon } from "@heroicons/react/solid";
+import { CollectionIcon } from "@heroicons/react/solid";
 
 import { FolderOpenIcon } from "@heroicons/react/solid";
 import AdminAnalytics from "./AdminAnalytics";
 import AdminUser from "./AdminUser";
 import AdminCategory from "./AdminCategory";
+import AdminTrips from "./AdminTrips";
 
 function Admin() {
   const [open, setOpen] = useState(false);
-  const [analyticOpen, setIsAnalyticOpen] = useState(false);
+
   const [isUserOpen, setIsUserOpen] = useState(false);
   const [isCatOpen, setIsCatOpen] = useState(false);
+  const [isTipOpen, setIsTipOpen] = useState(false);
 
   return (
     <div className="flex ">
@@ -40,26 +43,8 @@ function Admin() {
         <ul
           className="pt-5 pb-4 "
           onClick={() => {
-            setIsAnalyticOpen(!analyticOpen);
-            setIsUserOpen(false);
-            setIsCatOpen(false);
-          }}
-        >
-          <li
-            className={`text-silver text-sm flex items-center gap-x-4  cursor-pointer p-2 hover:bg-light hover:text-grayDark rounded-md duration-300 `}
-          >
-            <ChartBarIcon className="w-7" />
-            <span className={`${!open && "hidden"} origin-left duration-200`}>
-              Analytics
-            </span>
-          </li>
-        </ul>
-        {/* ------------------ */}
-        <ul
-          className="pt-5 pb-4 "
-          onClick={() => {
-            setIsAnalyticOpen(false);
             setIsUserOpen(!isUserOpen);
+            setIsTipOpen(false);
             setIsCatOpen(false);
           }}
         >
@@ -77,8 +62,28 @@ function Admin() {
         <ul
           className="pt-5 pb-4 "
           onClick={() => {
+            setIsCatOpen(false);
+            setIsTipOpen(!isTipOpen);
+            setIsUserOpen(false);
+          }}
+        >
+          <li
+            className={`text-silver text-sm flex items-center gap-x-4  cursor-pointer p-2 hover:bg-light hover:text-grayDark rounded-md duration-300 `}
+          >
+            <CollectionIcon className="w-7" />
+            <span className={`${!open && "hidden"} origin-left duration-200`}>
+              Trips
+            </span>
+          </li>
+        </ul>
+        {/* -------------------------- */}
+
+        <ul
+          className="pt-5 pb-4 "
+          onClick={() => {
             setIsCatOpen(!isCatOpen);
-            setIsAnalyticOpen(false);
+            setIsTipOpen(false);
+
             setIsUserOpen(false);
           }}
         >
@@ -94,10 +99,10 @@ function Admin() {
       </div>
 
       <div className="p-7  h-screen">
-        {analyticOpen && <AdminAnalytics />}
         {isUserOpen && <AdminUser />}
         {isCatOpen && <AdminCategory />}
-        {!analyticOpen && !isUserOpen && !isCatOpen && <div>hello Admin</div>}
+        {isTipOpen && <AdminTrips />}
+        {!isUserOpen && !isCatOpen && !isTipOpen && <AdminAnalytics />}
       </div>
     </div>
   );

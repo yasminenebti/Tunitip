@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { searchTip } from "../actions/tip.actions";
 import { useQuery } from "../hooks";
 import DisplayTips from "./DisplayTips";
-import SearchTip from "./SearchTip";
+
 
 function SearchCategory({ tipState, searchTip }) {
   const query = useQuery();

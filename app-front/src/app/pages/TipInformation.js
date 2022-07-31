@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect} from "react";
 import { connect } from "react-redux";
 
 import { getTips } from "../actions/tip.actions";
@@ -10,6 +10,7 @@ import RoomLogo from "../assets/door-open-solid.svg";
 import { LocationMarkerIcon } from "@heroicons/react/solid";
 
 function TipInformation({ tipState, getTips }) {
+  
   const { id } = useParams();
   useEffect(() => {
     getTips(5);
@@ -28,7 +29,11 @@ function TipInformation({ tipState, getTips }) {
                   className="  rounded-xl  h-96 w-96  hover:shadow-xl"
                 />
                 <div className="bg-yellow rounded-r-xl h-full w-96 px-7 pb-4">
-                  <div className=" font-bold pt-5 capitalize ">{tip.name}</div>
+                  <div className="flex justify-end ">
+                    <div className="   font-bold pt-5 capitalize ">
+                      {tip.name}
+                    </div>
+                  </div>
                   <div className=" text-sm pt-9 text-grayDark">
                     {tip.description}
                   </div>

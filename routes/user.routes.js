@@ -62,26 +62,11 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/userList", async (req, res) => {
   try {
-    var allUsers = await User.find().count();
+    const userList = await User.find().sort("-createdAt");
 
-    return res.status(200).json({ users: allUsers });
-  } catch (err) {
-    return res.status(500).json({ message: err });
-  }
-});
-
-router.get("/", async (req, res) => {
-  try {
-    const users = await User.find({});
-
-    const userMap = {};
-    users.forEach((user) => {
-      userMap[user._id] = user;
-    });
-
-    return res.status(200).json({ users: userMap });
+    return res.status(200).json({ users: userList });
   } catch (err) {
     return res.status(500).json({ message: err });
   }

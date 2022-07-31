@@ -7,7 +7,7 @@ import Footer from "./Footer";
 
 const PageA = ({ getTips, tipState }) => {
   useEffect(() => {
-    getTips(5);
+    getTips(20);
   }, [getTips]);
   return (
     <>
@@ -30,8 +30,8 @@ const PageA = ({ getTips, tipState }) => {
         ) : (
           ""
         )}
-       
       </div>
+      <Footer />
     </>
   );
 };

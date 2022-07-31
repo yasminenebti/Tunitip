@@ -7,6 +7,7 @@ const createTip = async (req, res) => {
     place: req.body.place,
     description: req.body.description,
     image: req.protocol + "://" + req.hostname + ":5000" + "/" + req.file.path,
+
     price: req.body.price,
     review: req.body.review,
     rooms: req.body.rooms,
@@ -29,7 +30,7 @@ const getTips = async (req, res) => {
     let tips = [];
     tips = await Tip.find().limit(limit).sort("-createdAt").populate({
       path: "host",
-      select: "phoneNumber",
+      select: "phoneNumber firstName",
     });
     return res.status(200).json({ tips: tips });
   } catch (error) {
@@ -68,23 +69,6 @@ const searchTip = async (req, res) => {
     res.status(500).json({ message: message.error });
   }
 };
-// const getTips = async (req, res) => {
-//   const tips = await Tip.find();
-//   try {
-//     return res.status(200).json({ tips: tips });
-//   } catch (error) {
-//     res.status(500).json({ message: message.error });
-//   }
-// };
-// const searchTip = async (req, res) => {
-//   const q = req.query.q ? req.query.q : "";
-//   try {
-//     const tip = await Tip.find({ name: { $regex: `.*${q}.*` } });
-//     return res.status(200).send({ Tip: tip });
-//   } catch {
-//     res.status(500).json({ message: message.error });
-//   }
-// };
 
 const getTip = async (req, res) => {
   const id = req.params.id;

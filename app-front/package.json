@@ -14,6 +14,7 @@
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "react-toastify": "^9.0.7",
     "react-use": "^17.4.0",
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
@@ -39,7 +40,7 @@
           "allowArrowFunction": false,
           "allowAnonymousClass": false,
           "allowAnonymousFunction": true,
-          "allowCallExpression": true, 
+          "allowCallExpression": true,
           "allowLiteral": false,
           "allowObject": false
         }

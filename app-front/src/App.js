@@ -15,7 +15,7 @@ import TipInformation from "./app/pages/TipInformation";
 import AdminRoute from "./app/Router/AdminRoute";
 import Admin from "./app/pages/Admin/Admin";
 import SearchCategory from "./app/pages/SearchCategory";
-import Footer from "./app/pages/Footer";
+
 
 function App() {
   useEffect(() => {
@@ -54,7 +54,7 @@ function App() {
           />
           <Route path="/tips/:id" element={<TipInformation />} />
         </Routes>
-        <Footer />
+       
       </Router>
     </Provider>
   );
