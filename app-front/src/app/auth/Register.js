@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import { register } from "../actions/auth.actions";
 import { connect } from "react-redux";
 
-function Register({ closeModal, register }) {
+function Register({ closeModal, register, authState }) {
+  
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -19,8 +20,6 @@ function Register({ closeModal, register }) {
   const onSubmitData = async (e) => {
     e.preventDefault();
     await register(formData);
-
-    closeModal(false);
   };
   const handleChange = (e) => {
     setFormData({
@@ -113,15 +112,33 @@ function Register({ closeModal, register }) {
               value={formData.password}
             />
           </div>
+          <div className="py-5">
+            
+            {authState.isRegistered && closeModal(false)}
+          </div>
           <div className="px-9 py-3">
-            <button
-              type="submit"
-              className="mt-3 text-lg font-bold 
-                bg-primary w-full text-white rounded-lg
-                px-4 py-3 block shadow-xl "
-            >
-              Register
-            </button>
+            {!authState.loading ? (
+              <>
+                <button
+                  
+                  type="submit"
+                  className="text-lg font-bold bg-primary w-full text-white rounded-md px-4 py-3 shadow-xl "
+                >
+                  Register
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  
+                  disabled={authState.loading}
+                  type="submit"
+                  className="text-lg font-bold bg-primary cursor-wait w-full text-white rounded-md px-4 py-3 shadow-xl "
+                >
+                  Register
+                </button>
+              </>
+            )}
           </div>
         </form>
       </div>
@@ -133,7 +150,9 @@ Register.propTypes = {
   register: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
 };
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  authState: state.authState,
+});
 
 const mapDispatchToProps = {
   register,

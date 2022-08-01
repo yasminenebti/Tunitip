@@ -99,10 +99,10 @@ function Admin() {
       </div>
 
       <div className="p-7  h-screen">
+        {!isUserOpen && !isCatOpen && !isTipOpen && <AdminAnalytics />}
         {isUserOpen && <AdminUser />}
         {isCatOpen && <AdminCategory />}
         {isTipOpen && <AdminTrips />}
-        {!isUserOpen && !isCatOpen && !isTipOpen && <AdminAnalytics />}
       </div>
     </div>
   );

@@ -5,6 +5,10 @@ import { login } from "../actions/auth.actions";
 import { connect } from "react-redux";
 
 function SignIn({ closeModal, login, authState }) {
+  const [alert, setAlert] = useState(false);
+  function handleAlert() {
+    setAlert(true);
+  }
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -16,7 +20,6 @@ function SignIn({ closeModal, login, authState }) {
   const onSubmitData = async (e) => {
     e.preventDefault();
     await login(formData);
-    closeModal(false);
   };
   const handleChange = (e) => {
     setFormData({
@@ -61,17 +64,18 @@ function SignIn({ closeModal, login, authState }) {
               value={formData.password}
             />
           </div>
-          <div className="flex justify-end px-3">
-            <label className="block text-md text-grayDark italic  my-4">
-              <div className="cursor-pointer  border-b border-gray hover:shadow-md">
-                {/* <span>Forgot Password?</span> */}
-              </div>
-            </label>
+          <div className="py-5">
+            {alert && authState.error && (
+              <div className="text-red px-6">Wrong Email/Password</div>
+            )}
+            {authState.isAuthenticated && closeModal(false)}
           </div>
+
           <div className="px-9 py-3">
             {!authState.loading ? (
               <>
                 <button
+                  onClick={handleAlert}
                   type="submit"
                   className="text-lg font-bold bg-primary w-full text-white rounded-md px-4 py-3 shadow-xl "
                 >
@@ -81,6 +85,7 @@ function SignIn({ closeModal, login, authState }) {
             ) : (
               <>
                 <button
+                  onClick={handleAlert}
                   disabled={authState.loading}
                   type="submit"
                   className="text-lg font-bold bg-primary cursor-wait w-full text-white rounded-md px-4 py-3 shadow-xl "

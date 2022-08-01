@@ -12,6 +12,7 @@ import { logout } from "../actions/auth.actions";
 import { useClickAway } from "react-use";
 import TipForm from "./TipForm";
 
+
 function Header({ authState, logout }) {
   let navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
@@ -150,6 +151,7 @@ function Header({ authState, logout }) {
           {isTipFormOpen && (
             <TipForm method="post" closeModal={(e) => handleTipFormClose(e)} />
           )}
+          
         </div>
       </header>
     </div>

@@ -83,163 +83,186 @@ function TipForm({
   };
 
   return (
+ 
     <div>
       <div className="fixed z-10 top-0 left-0 w-full h-full flex items-center justify-center bg-grayDark bg-opacity-60 overflow-y-auto ">
-        <div ref={ref} className="w-1/4 h-3/4 bg-yellow rounded-xl space-x-2 ">
-          <button
-            onClick={() => closeModal(false)}
-            className="flex justify-end pt-2 px-4 font-semibold hover:shadow-md"
-          >
-            X
-          </button>
-          <form onSubmit={(e) => onSubmitData(e)} className="">
-            <div className="mx-auto p-5">
-              <div className="flex space-x-2 pb-3 justify-center items-center  ">
-                <label className="text-md text-grayDark py-2 " htmlFor="name">
-                  Name
-                </label>
-                <input
-                  onChange={(e) => handleChange(e)}
-                  className="text-md  px-3 py-2  rounded-lg w-full bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
-                  type="text"
-                  name="name"
-                  required
-                  value={tipData.name}
-                />
-                <label className="text-md text-grayDark py-2 " htmlFor="place">
-                  place
-                </label>
-                <input
-                  onChange={(e) => handleChange(e)}
-                  className="text-md block px-3 py-2  rounded-lg w-full bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
-                  type="text"
-                  name="place"
-                  required
-                  value={tipData.place}
-                />
-              </div>
-              <label
-                className="text-md  text-grayDark py-9"
-                htmlFor="description"
-              >
-                Description
-              </label>
-              <textarea
-                onChange={(e) => handleChange(e)}
-                className="text-md block px-3 py-2  rounded-lg w-full bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
-                type="text"
-                name="description"
-                required
-                value={tipData.description}
-              />
-              <label className="text-md text-grayDark py-5" htmlFor="image">
-                Image
-              </label>
-              <input
-                onChange={(e) => handleFileChange(e)}
-                className="file:bg-silver file:px-4 file:py-1 file:border-none file:rounded-full file:cursor-pointer file:shadow-lg "
-                type="file"
-                name="image"
-                value={tipData.image}
-              />
-
-              <div className="flex pt-3 gap-3">
-                <label className="text-md text-grayDark py-2" htmlFor="price">
-                  Price
-                </label>
-                <input
-                  onChange={(e) => handleChange(e)}
-                  className="text-md  w-24  rounded-lg  bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
-                  type="Number"
-                  min={0}
-                  name="price"
-                  required
-                  value={tipData.price}
-                />
-                <label className="text-md text-grayDark py-2" htmlFor="rooms">
-                  Rooms
-                </label>
-                <input
-                  onChange={(e) => handleChange(e)}
-                  className="text-md  w-24   rounded-lg  bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
-                  type="Number"
-                  min={0}
-                  name="rooms"
-                  required
-                  value={tipData.rooms}
-                />
-              </div>
-              <div className="flex pt-3 gap-3 ">
-                <label className="text-md text-grayDark py-2 " htmlFor="beds">
-                  Beds
-                </label>
-                <input
-                  onChange={(e) => handleChange(e)}
-                  className="text-md  w-24    rounded-lg  bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
-                  type="Number"
-                  min={0}
-                  name="beds"
-                  required
-                  value={tipData.beds}
-                />
+        <div className=" sm:mx-auto sm:w-full sm:max-w-md">
+          <div ref={ref} className="bg-yellow py-4 shadow rounded-lg sm:px-5">
+            <button
+              onClick={() => closeModal(false)}
+              className="flex justify-end rounded-full border-light  font-semibold hover:shadow-md"
+            >
+              X
+            </button>
+            <form onSubmit={(e) => onSubmitData(e)} className="mb-0 ">
+              <div className="mx-auto p-3">
+                <div className="flex space-x-2 pb-3 justify-center items-center  ">
+                  <label
+                    className="block font-medium text-md text-grayDark py-2 "
+                    htmlFor="name"
+                  >
+                    Name
+                  </label>
+                  <input
+                    onChange={(e) => handleChange(e)}
+                    className="w-full border border-silver px-3 py-2 rounded-lg shadow-md focus:outline-none  focus:ring-2 focus:ring-blue"
+                    type="text"
+                    name="name"
+                    required
+                    value={tipData.name}
+                  />
+                  <label
+                    className="block font-medium text-md text-grayDark py-2  "
+                    htmlFor="place"
+                  >
+                    place
+                  </label>
+                  <input
+                    onChange={(e) => handleChange(e)}
+                    className="w-full border border-silver px-3 py-2 rounded-lg shadow-md focus:outline-none  focus:ring-2 focus:ring-blue "
+                    type="text"
+                    name="place"
+                    required
+                    value={tipData.place}
+                  />
+                </div>
                 <label
-                  className="text-md text-grayDark py-2 pr-3"
-                  htmlFor="baths"
+                  className="block font-medium text-md text-grayDark py-2"
+                  htmlFor="description"
                 >
-                  Baths
+                  Description
                 </label>
-                <input
+                <textarea
                   onChange={(e) => handleChange(e)}
-                  className="text-md  w-24     rounded-lg bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
-                  type="Number"
-                  min={0}
-                  name="baths"
+                  className="w-full border border-silver px-3 py-2 rounded-lg shadow-md focus:outline-none  focus:ring-2 focus:ring-blue "
+                  type="text"
+                  name="description"
                   required
-                  value={tipData.baths}
+                  value={tipData.description}
                 />
-              </div>
+                <div className="pt-4 pb-2">
+                  <label
+                    className="block font-medium text-md text-grayDark py-2 "
+                    htmlFor="image"
+                  >
+                    Image
+                  </label>
+                </div>
+                <input
+                  onChange={(e) => handleFileChange(e)}
+                  className="file:bg-yellow file:border file:border-primary file:px-4 file:py-1  file:rounded-lg file:cursor-pointer "
+                  type="file"
+                  name="image"
+                  value={tipData.image}
+                />
 
-              <div className="pt-4">
-                <label
-                  className="text-md text-grayDark py-5 "
-                  htmlFor="category"
-                >
-                  Category
-                </label>
-                <select
-                  name="category"
-                  value={tipData.category}
-                  onChange={(e) => handleChange(e)}
-                  className="text-md  w-full    rounded-lg bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
-                >
-                  <option value={""}>--Select Category </option>
+                <div className="flex pt-3 gap-3">
+                  <label
+                    className="block font-medium text-md text-grayDark py-2"
+                    htmlFor="price"
+                  >
+                    Price
+                  </label>
+                  <input
+                    onChange={(e) => handleChange(e)}
+                    className="text-md  w-24  rounded-lg  bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
+                    type="Number"
+                    min={0}
+                    name="price"
+                    required
+                    value={tipData.price}
+                  />
+                  <label
+                    className="block font-medium text-md text-grayDark py-2"
+                    htmlFor="rooms"
+                  >
+                    Rooms
+                  </label>
+                  <input
+                    onChange={(e) => handleChange(e)}
+                    className="text-md  w-24   rounded-lg  bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
+                    type="Number"
+                    min={0}
+                    name="rooms"
+                    required
+                    value={tipData.rooms}
+                  />
+                </div>
+                <div className="flex pt-3 gap-3 ">
+                  <label
+                    className="block font-medium text-md text-grayDark py-2 "
+                    htmlFor="beds"
+                  >
+                    Beds
+                  </label>
+                  <input
+                    onChange={(e) => handleChange(e)}
+                    className="text-md  w-24    rounded-lg  bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
+                    type="Number"
+                    min={0}
+                    name="beds"
+                    required
+                    value={tipData.beds}
+                  />
+                  <label
+                    className="block font-medium text-md text-grayDark py-2 pr-3"
+                    htmlFor="baths"
+                  >
+                    Baths
+                  </label>
+                  <input
+                    onChange={(e) => handleChange(e)}
+                    className="text-md  w-24     rounded-lg bg-yellow border border-silver  shadow-md focus:bg-white focus:border-light focus:outline-none "
+                    type="Number"
+                    min={0}
+                    name="baths"
+                    required
+                    value={tipData.baths}
+                  />
+                </div>
 
-                  {categoryState.categories.map((cat) => {
-                    return (
-                      <option key={cat._id} value={cat._id}>
-                        {cat.name}
-                      </option>
-                    );
-                  })}
-                </select>
+                <div className="pt-4">
+                  <label
+                    className="block font-medium text-md text-grayDark py-2 "
+                    htmlFor="category"
+                  >
+                    Category
+                  </label>
+                  <select
+                    name="category"
+                    value={tipData.category}
+                    onChange={(e) => handleChange(e)}
+                    className=" w-full border border-none px-4 py-2 rounded-lg shadow-md focus:outline-none  focus:ring-2 focus:ring-blue "
+                  >
+                    <option value={""}>--Select Category </option>
+
+                    {categoryState.categories.map((cat) => {
+                      return (
+                        <option key={cat._id} value={cat._id}>
+                          {cat.name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+                {method === "post" ? (
+                  <button
+                    type="submit"
+                    className="mt-5 text-lg font-bold bg-primary w-full text-white rounded-lg py-3  shadow-xl "
+                  >
+                    Create
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    className="mt-5 text-lg font-bold bg-primary w-full text-white rounded-lg py-3  shadow-xl"
+                  >
+                    Update
+                  </button>
+                )}
               </div>
-              {method === "post" ? (
-                <button
-                  type="submit"
-                  className="mt-5 text-lg font-bold bg-primary w-full text-white rounded-lg py-3  shadow-xl "
-                >
-                  Create
-                </button>
-              ) : (
-                <button
-                  type="submit"
-                  className="mt-5 text-lg font-bold bg-primary w-full text-white rounded-lg py-3  shadow-xl"
-                >
-                  Update
-                </button>
-              )}
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>

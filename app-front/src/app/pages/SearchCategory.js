@@ -4,7 +4,6 @@ import { searchTip } from "../actions/tip.actions";
 import { useQuery } from "../hooks";
 import DisplayTips from "./DisplayTips";
 
-
 function SearchCategory({ tipState, searchTip }) {
   const query = useQuery();
   useEffect(() => {

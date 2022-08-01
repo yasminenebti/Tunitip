@@ -13,6 +13,8 @@ const USER_LIST = "USER_LIST";
 const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: null,
+  isRegistered: false,
+
   loading: false,
   user: null,
   users: [],
@@ -48,6 +50,7 @@ export default function (state = initialState, action) {
     case REGISTER_SUCCESS:
       return {
         ...state,
+        isRegistered: true,
         loading: false,
       };
 
